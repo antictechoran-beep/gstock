@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTIC STOCK — برنامج التسيير التجاري</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#6B21A8;--purple-dark:#4C1D95;--purple-light:#F3E8FF;--gold:#F59E0B;--gold-light:#FEF3C7;--text:#1A1A18;--muted:#5F5E5A;--border:#E2E2DE;--bg:#F8FAFB;--white:#fff;--green:#10B981;--green-light:#D1FAE5}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal','Inter',sans-serif;color:var(--text);background:var(--white);font-size:15px;line-height:1.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:16px;color:var(--purple-dark)}
+.nav-logo img{height:36px;width:36px;border-radius:8px;object-fit:cover}
+.nav-cta{background:var(--purple);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#2E1065 0%,#6B21A8 45%,#A855F7 100%);padding:72px 16px 40px;text-align:center}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#E9D5FF;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:4px 12px;border-radius:20px;margin-bottom:16px;text-transform:uppercase}
+.hero h1{font-size:clamp(1.8rem,6vw,2.6rem);font-weight:800;color:#fff;line-height:1.2;letter-spacing:-0.5px;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:#FCD34D}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:24px;max-width:420px;margin-left:auto;margin-right:auto}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+.btn-white{background:#fff;color:var(--purple-dark);padding:12px 22px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;border:none;cursor:pointer}
+.btn-outline{background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;text-decoration:none}
+
+/* SLIDER */
+.slider-wrap{position:relative;overflow:hidden;border-radius:14px;margin:0 -4px}
+.slider{display:flex;transition:transform 0.4s ease;will-change:transform}
+.slide{min-width:100%;padding:0 4px}
+.slide img{width:100%;border-radius:12px;display:block;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+.slider-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.dot-btn{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);border:none;cursor:pointer;padding:0;transition:background 0.2s}
+.dot-btn.active{background:#fff;width:20px;border-radius:4px}
+
+/* SECTIONS */
+section{padding:48px 16px}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+.sec-title{font-size:clamp(1.3rem,5vw,1.8rem);font-weight:800;color:#1A1A18;letter-spacing:-0.3px;margin-bottom:8px}
+.sec-sub{font-size:14px;color:var(--muted);line-height:1.7}
+
+/* PRICING - Side by Side */
+.pricing{background:var(--bg)}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.price-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:14px;position:relative;transition:border-color 0.2s;display:flex;flex-direction:column}
+.price-card.popular{border-color:var(--purple);background:var(--purple-light)}
+.price-name{font-size:13px;font-weight:800;color:#1A1A18;margin-bottom:3px;line-height:1.3}
+.price-desc{font-size:11px;color:var(--muted);margin-bottom:8px}
+.price-amount{font-size:22px;font-weight:800;color:var(--purple-dark);margin-bottom:2px}
+.price-amount span{font-size:12px;font-weight:600;color:var(--muted)}
+.price-features{list-style:none;margin:8px 0;padding:0;flex-grow:1}
+.price-features li{font-size:11px;color:var(--muted);padding:4px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.price-features li:last-child{border-bottom:none}
+.price-features li::before{content:"✓";color:var(--green);font-weight:700;font-size:12px;flex-shrink:0}
+.price-btn{display:block;text-align:center;text-decoration:none;margin-top:auto;padding:10px 8px;border-radius:10px;font-size:12px;font-weight:700;border:none;cursor:pointer}
+.price-btn.purple{background:var(--purple);color:#fff}
+.price-btn.gold{background:var(--gold);color:#78350F}
+
+/* ORDER FORM */
+.order-section{background:#fff}
+.form-wrap{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:20px;margin-top:24px}
+
+/* OPTIONS */
+.options-grid{display:grid;gap:10px;margin-bottom:20px}
+.option-item{background:#fff;border:2px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color 0.2s,background 0.2s}
+.option-item.selected{border-color:var(--purple);background:var(--purple-light)}
+.option-left{display:flex;align-items:center;gap:10px}
+.option-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
+.option-item.selected .option-check{background:var(--purple);border-color:var(--purple)}
+.option-name{font-size:14px;font-weight:700;color:#1A1A18}
+.option-desc{font-size:12px;color:var(--muted)}
+.option-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:rgba(107,33,168,0.15);color:var(--purple-dark)}
+.option-price{font-size:15px;font-weight:800;color:var(--purple-dark);white-space:nowrap}
+
+.total-bar{background:var(--purple-dark);color:#fff;border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.total-label{font-size:13px;font-weight:600;opacity:0.8}
+.total-amount{font-size:20px;font-weight:800}
+
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
+.req{color:var(--purple)}
+.form-input,.form-select,.form-textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;color:var(--text);background:#fff;outline:none;transition:border-color 0.2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(107,33,168,0.1)}
+.form-textarea{min-height:80px;resize:vertical}
+.form-error{color:#E24B4A;font-size:11px;margin-top:3px;display:none}
+.btn-submit{width:100%;padding:15px;background:var(--purple);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;margin-top:4px;transition:background 0.2s}
+.btn-submit:hover{background:var(--purple-dark)}
+.btn-submit:disabled{background:#aaa;cursor:not-allowed}
+
+.form-success{text-align:center;padding:32px;display:none}
+.success-icon{font-size:48px;margin-bottom:12px}
+.success-title{font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:6px}
+.success-desc{font-size:14px;color:var(--muted)}
+
+/* FEATURES */
+.features{background:var(--bg)}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.feat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.feat-icon{font-size:28px;margin-bottom:8px;display:block}
+.feat-title{font-size:13px;font-weight:700;color:#1A1A18;margin-bottom:4px}
+.feat-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* AVIS */
+.avis-slider-wrap{position:relative;overflow:hidden;margin-top:24px}
+.avis-slider{display:flex;transition:transform 0.4s ease}
+.avis-slide{min-width:100%;padding:0 4px}
+.avis-slide img{width:100%;border-radius:14px;display:block;box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.avis-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.avis-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:none;cursor:pointer;padding:0;transition:all 0.2s}
+.avis-dot.active{background:var(--purple);width:20px;border-radius:4px}
+
+/* FOOTER */
+footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-align:center}
+.footer-logo{font-size:17px;font-weight:800;color:#fff;margin-bottom:6px}
+.footer-contact{font-size:13px;margin-bottom:10px}
+.footer-contact a{color:#C4B5FD;text-decoration:none}
+.footer-note{font-size:11px}
+
+.toast{position:fixed;bottom:20px;right:16px;left:16px;z-index:999;background:var(--purple-dark);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.2);opacity:0;transform:translateY(12px);transition:all 0.3s;text-align:center}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* RTL */
+[dir="rtl"] .option-left{flex-direction:row-reverse}
+[dir="rtl"] .total-bar{flex-direction:row-reverse}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="IMG_4643.PNG" alt="ANTIC STOCK">
+    ANTIC STOCK
+  </div>
+  <a href="#commander" class="nav-cta">اطلب الآن</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-badge">برنامج 100% جزائري</span>
+  <h1>ANTIC STOCK <em>برنامج التسيير التجاري</em></h1>
+  <p class="hero-desc">حل متكامل لإدارة مخزونك، مبيعاتك، مشترياتك وأرباحك. سهل الاستخدام، فعال وموثوق.</p>
+  <div class="hero-btns">
+    <a href="https://youtube.com/playlist?list=PLsNd_NLF0gcNJZbpph_IX6T5NFy7U7_QI&si=70hqvCQJ3m-A45TI" target="_blank" class="btn-outline">▶️ فيديو تجريبي</a>
+    <a href="https://www.mediafire.com/file/12ky2yasnx7x11i/ANTIC+STOCK+V3.8.rar/file" target="_blank" class="btn-outline">⬇️ نسخة تجريبية</a>
+  </div>
+  <!-- SLIDER -->
+  <div class="slider-wrap">
+    <div class="slider" id="heroSlider">
+      <div class="slide"><img src="WhatsApp Image 2026-07-19 at 21.03.50.jpeg" alt="واجهة البرنامج"></div>
+      <div class="slide"><img src="IMG_4643.PNG" alt="شعار ANTIC STOCK"></div>
+      <div class="slide"><img src="123.jpg" alt="تقييمات العملاء"></div>
+    </div>
+  </div>
+  <div class="slider-dots" id="heroDots">
+    <button class="dot-btn active" onclick="heroGo(0)"></button>
+    <button class="dot-btn" onclick="heroGo(1)"></button>
+    <button class="dot-btn" onclick="heroGo(2)"></button>
+  </div>
+</section>
+
+<!-- PRICING (OFFRES) -->
+<section class="pricing" id="tarifs">
+  <div class="sec-label">الأسعار</div>
+  <h2 class="sec-title">اختر العرض المناسب</h2>
+  <p class="sec-sub">أسعار شفافة، بدون رسوم خفية</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">البرنامج الأساسي</div>
+      <div class="price-desc">تفعيل مدى الحياة</div>
+      <div class="price-amount">12,000 <span>دج</span></div>
+      <ul class="price-features">
+        <li>تفعيل مدى الحياة</li>
+        <li>جميع الخصائص</li>
+        <li>دعم فني لمدة سنة</li>
+        <li>تثبيت على جهاز واحد</li>
+      </ul>
+      <a href="#commander" class="price-btn purple">اطلب الآن</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">طلب عرض سعر</div>
+      <div class="price-desc">برنامج + معدات</div>
+      <div class="price-amount">0 <span>دج</span></div>
+      <ul class="price-features">
+        <li>دراسة مجانية لاحتياجاتك</li>
+        <li>برنامج + طابعة + باركود</li>
+        <li>تثبيت وتهيئة</li>
+        <li>تدريب فريق العمل</li>
+      </ul>
+      <a href="#commander" class="price-btn gold">اطلب عرض سعر</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMMANDER (FORMULAIRE) -->
+<section class="order-section" id="commander">
+  <div class="sec-label">الطلب</div>
+  <h2 class="sec-title">اطلب ANTIC STOCK الآن</h2>
+  <div class="form-wrap">
+    <div id="formContent">
+
+      <!-- OPTIONS -->
+      <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;">اختر العرض <span class="req">*</span></div>
+      <div class="options-grid">
+        <div class="option-item selected" id="opt-logiciel" onclick="toggleOption('logiciel',12000)">
+          <div class="option-left">
+            <div class="option-check" id="check-logiciel"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div>
+              <div class="option-name">البرنامج الأساسي <span class="option-badge">مدى الحياة</span></div>
+              <div class="option-desc">تفعيل دائم بدون اشتراك</div>
+            </div>
+          </div>
+          <div class="option-price">12,000 دج</div>
+        </div>
+        <div class="option-item" id="opt-devis" onclick="toggleOption('devis',0)">
+          <div class="option-left">
+            <div class="option-check" id="check-devis"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div>
+              <div class="option-name">طلب عرض سعر</div>
+              <div class="option-desc">برنامج + معدات (طابعة، باركود...)</div>
+            </div>
+          </div>
+          <div class="option-price">مجاني</div>
+        </div>
+      </div>
+      <div class="form-error" id="err-options" style="margin-bottom:10px;">يرجى اختيار عرض واحد على الأقل.</div>
+
+      <!-- TOTAL -->
+      <div class="total-bar">
+        <div class="total-label">المجموع التقديري</div>
+        <div class="total-amount" id="totalAmount">12,000 دج</div>
+      </div>
+
+      <!-- FORM FIELDS -->
+      <div class="form-group">
+        <label class="form-label">الاسم الكامل <span class="req">*</span></label>
+        <input type="text" id="nom" class="form-input" placeholder="الاسم واللقب" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false">
+        <div class="form-error" id="err-nom">هذا الحقل إجباري.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">رقم الهاتف <span class="req">*</span></label>
+        <input type="tel" id="phone" class="form-input" placeholder="06 XX XX XX XX" autocomplete="off" autocorrect="off" spellcheck="false">
+        <div class="form-error" id="err-phone">هذا الحقل إجباري.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">الولاية <span class="req">*</span></label>
+        <select id="wilaya" class="form-select">
+          <option value="">— اختر الولاية —</option>
+          <option value="01">01 - أدرار</option>
+          <option value="02">02 - الشلف</option>
+          <option value="03">03 - الأغواط</option>
+          <option value="04">04 - أم البواقي</option>
+          <option value="05">05 - باتنة</option>
+          <option value="06">06 - بجاية</option>
+          <option value="07">07 - بسكرة</option>
+          <option value="08">08 - بشار</option>
+          <option value="09">09 - البليدة</option>
+          <option value="10">10 - البويرة</option>
+          <option value="11">11 - تamanrasset</option>
+          <option value="12">12 - تبسة</option>
+          <option value="13">13 - تلمسان</option>
+          <option value="14">14 - تيارت</option>
+          <option value="15">15 - تيزي وزو</option>
+          <option value="16">16 - الجزائر</option>
+          <option value="17">17 - الجلفة</option>
+          <option value="18">18 - جيجل</option>
+          <option value="19">19 - سطيف</option>
+          <option value="20">20 - سعيدة</option>
+          <option value="21">21 - سكيكدة</option>
+          <option value="22">22 - سيدي بلعباس</option>
+          <option value="23">23 - عنابة</option>
+          <option value="24">24 - قالمة</option>
+          <option value="25">25 - قسنطينة</option>
+          <option value="26">26 - المدية</option>
+          <option value="27">27 - مستغانم</option>
+          <option value="28">28 - المسيلة</option>
+          <option value="29">29 - معسكر</option>
+          <option value="30">30 - ورقلة</option>
+          <option value="31">31 - وهران</option>
+          <option value="32">32 - البيض</option>
+          <option value="33">33 - إليزي</option>
+          <option value="34">34 - برج بوعريريج</option>
+          <option value="35">35 - بومرداس</option>
+          <option value="36">36 - الطارف</option>
+          <option value="37">37 - تندوف</option>
+          <option value="38">38 - تيسمسيلت</option>
+          <option value="39">39 - الوادي</option>
+          <option value="40">40 - خنشلة</option>
+          <option value="41">41 - سوق أهراس</option>
+          <option value="42">42 - تيبازة</option>
+          <option value="43">43 - ميلة</option>
+          <option value="44">44 - عين الدفلى</option>
+          <option value="45">45 - النعامة</option>
+          <option value="46">46 - عين تيموشنت</option>
+          <option value="47">47 - غرداية</option>
+          <option value="48">48 - غيليزان</option>
+          <option value="49">49 - تيميمون</option>
+          <option value="50">50 - برج باجي مختار</option>
+          <option value="51">51 - أولاد جلال</option>
+          <option value="52">52 - بني عباس</option>
+          <option value="53">53 - عين صالح</option>
+          <option value="54">54 - عين قزام</option>
+          <option value="55">55 - تقرت</option>
+          <option value="56">56 - جانت</option>
+          <option value="57">57 - المغير</option>
+          <option value="58">58 - المنيعة</option>
+        </select>
+        <div class="form-error" id="err-wilaya">يرجى اختيار الولاية.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">البلدية</label>
+        <input type="text" id="commune" class="form-input" placeholder="بلديتك">
+      </div>
+      <div class="form-group">
+        <label class="form-label">ملاحظة / تخصص النشاط</label>
+        <textarea id="note" class="form-textarea" placeholder="نوع النشاط التجاري، متجر، سوبرماركت..."></textarea>
+      </div>
+      <button class="btn-submit" id="submitBtn" onclick="submitForm()">✅ تأكيد الطلب</button>
+      <a id="waBtn" href="#" target="_blank" onclick="return openWA()" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:15px;background:#25D366;color:#fff;font-size:15px;font-weight:700;border-radius:12px;text-decoration:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.858L.057 23.571a.5.5 0 0 0 .615.612l5.857-1.537A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.7-.51-5.25-1.4l-.375-.222-3.886 1.02 1.036-3.786-.243-.389A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        اطلب عبر واتساب
+      </a>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">تم استلام طلبك!</div>
+      <p class="success-desc">سنتصل بك خلال 24 ساعة لتأكيد الطلب وترتيب التثبيت.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="fonctionnalites">
+  <div class="sec-label">الخصائص</div>
+  <h2 class="sec-title">لماذا تختار ANTIC STOCK؟</h2>
+  <p class="sec-sub">برنامج متكامل يغطي جميع احتياجات تسيير نشاطك التجاري</p>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <span class="feat-icon">📦</span>
+      <div class="feat-title">تسيير المخزون</div>
+      <div class="feat-desc">متابعة حية للمخزون، تنبيهات النفاد، الجرد التلقائي</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">💰</span>
+      <div class="feat-title">المبيعات والشراء</div>
+      <div class="feat-desc">فواتير، عروض أسعار، أوامر شراء، بسيطة وسريعة</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">📊</span>
+      <div class="feat-title">الأرباح والمصاريف</div>
+      <div class="feat-desc">تتبع الأرباح، حساب المصاريف، تقارير مالية تفصيلية</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">👥</span>
+      <div class="feat-title">العملاء والموردين</div>
+      <div class="feat-desc">قاعدة بيانات العملاء، الموردين، سجل المعاملات</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">🔄</span>
+      <div class="feat-title">تفعيل مدى الحياة</div>
+      <div class="feat-desc">شراء لمرة واحدة، استخدام دائم بدون اشتراكات شهرية</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">🛠️</span>
+      <div class="feat-title">فريق تقني متوفر</div>
+      <div class="feat-desc">دعم فني سريع، مرافقة مستمرة، تحديثات مجانية</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">📱</span>
+      <div class="feat-title">سهل الاستخدام</div>
+      <div class="feat-desc">واجهة عصرية، سهلة التعلم، لا تحتاج خبرة تقنية</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">🔒</span>
+      <div class="feat-title">آمن وموثوق</div>
+      <div class="feat-desc">حماية البيانات، نسخ احتياطي، استقرار عالي</div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section id="avis">
+  <div class="sec-label">آراء العملاء</div>
+  <h2 class="sec-title">ثقة عملائنا هي نجاحنا</h2>
+  <div class="avis-slider-wrap">
+    <div class="avis-slider" id="avisSlider">
+      <div class="avis-slide"><img src="123.jpg" alt="تقييم 1"></div>
+      <div class="avis-slide"><img src="124.jpg" alt="تقييم 2"></div>
+      <div class="avis-slide"><img src="125.jpg" alt="تقييم 3"></div>
+      <div class="avis-slide"><img src="126.jpg" alt="تقييم 4"></div>
+    </div>
+  </div>
+  <div class="avis-dots" id="avisDots">
+    <button class="avis-dot active" onclick="avisGo(0)"></button>
+    <button class="avis-dot" onclick="avisGo(1)"></button>
+    <button class="avis-dot" onclick="avisGo(2)"></button>
+    <button class="avis-dot" onclick="avisGo(3)"></button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ANTIC STOCK</div>
+  <div class="footer-contact">
+    📞 0673 11 91 02 | 0770 19 58 73<br>
+    ✉️ <a href="mailto:antictech.oran@gmail.com">antictech.oran@gmail.com</a><br>
+    🌐 ANTIC TECH
+  </div>
+  <div class="footer-note">برنامج التسيير التجاري — 100% جزائري</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Hero Slider
+let heroIdx=0;
+const heroSlider=document.getElementById('heroSlider');
+const heroDots=document.querySelectorAll('#heroDots .dot-btn');
+function heroGo(i){heroIdx=i;heroSlider.style.transform='translateX('+(-i*100)+'%)';heroDots.forEach((d,j)=>d.classList.toggle('active',j===i));}
+setInterval(()=>{heroGo((heroIdx+1)%3);},5000);
+
+// Avis Slider
+let avisIdx=0;
+const avisSlider=document.getElementById('avisSlider');
+const avisDots=document.querySelectorAll('#avisDots .avis-dot');
+function avisGo(i){avisIdx=i;avisSlider.style.transform='translateX('+(-i*100)+'%)';avisDots.forEach((d,j)=>d.classList.toggle('active',j===i));}
+setInterval(()=>{avisGo((avisIdx+1)%4);},5000);
+
+// Options - CORRIGÉ: les deux options sont cliquables
+let selectedOptions={'logiciel':true,'devis':false};
+let totalPrice=12000;
+
+function toggleOption(id,price){
+  // Réinitialiser tout d'abord
+  selectedOptions={'logiciel':false,'devis':false};
+  document.getElementById('opt-logiciel').classList.remove('selected');
+  document.getElementById('opt-devis').classList.remove('selected');
+
+  // Sélectionner l'option cliquée
+  if(id==='logiciel'){
+    selectedOptions={'logiciel':true,'devis':false};
+    document.getElementById('opt-logiciel').classList.add('selected');
+    totalPrice=12000;
+  } else {
+    selectedOptions={'logiciel':false,'devis':true};
+    document.getElementById('opt-devis').classList.add('selected');
+    totalPrice=0;
+  }
+
+  document.getElementById('totalAmount').textContent=totalPrice===0?'مجاني':totalPrice.toLocaleString('fr-FR')+' دج';
+}
+
+// Form
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+function submitForm(){
+  const nom=document.getElementById('nom').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const wilaya=document.getElementById('wilaya').value;
+  let valid=true;
+  if(!nom){document.getElementById('err-nom').style.display='block';valid=false;}else{document.getElementById('err-nom').style.display='none';}
+  if(!phone){document.getElementById('err-phone').style.display='block';valid=false;}else{document.getElementById('err-phone').style.display='none';}
+  if(!wilaya){document.getElementById('err-wilaya').style.display='block';valid=false;}else{document.getElementById('err-wilaya').style.display='none';}
+  if(!valid)return;
+
+  const optionText=selectedOptions.logiciel?'البرنامج الأساسي (12,000 دج)':'طلب عرض سعر (مجاني)';
+  const commune=document.getElementById('commune').value.trim();
+  const note=document.getElementById('note').value.trim();
+
+  const msg='طلب جديد - ANTIC STOCK\n'+'العرض: '+optionText+'\n'+'الاسم: '+nom+'\n'+'الهاتف: '+phone+'\n'+'الولاية: '+wilaya+'\n'+(commune?'البلدية: '+commune+'\n':'')+(note?'ملاحظة: '+note:'');
+
+  const waUrl='https://wa.me/213673119102?text='+encodeURIComponent(msg);
+  window.open(waUrl,'_blank');
+
+  document.getElementById('formContent').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+}
+function openWA(){return submitForm(),false;}
+</script>
+
+</body>
+</html>
