@@ -14,10 +14,9 @@ body{font-family:'Tajawal','Inter',sans-serif;color:var(--text);background:var(-
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:16px;color:var(--purple-dark)}
-.nav-logo img{height:36px;width:36px;border-radius:8px;object-fit:cover}
 .nav-cta{background:var(--purple);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none}
 
-/* HERO */
+/* HERO - sans logo, sans interface, sans avis */
 .hero{background:linear-gradient(160deg,#2E1065 0%,#6B21A8 45%,#A855F7 100%);padding:72px 16px 40px;text-align:center}
 .hero-badge{display:inline-block;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#E9D5FF;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:4px 12px;border-radius:20px;margin-bottom:16px;text-transform:uppercase}
 .hero h1{font-size:clamp(1.8rem,6vw,2.6rem);font-weight:800;color:#fff;line-height:1.2;letter-spacing:-0.5px;margin-bottom:12px}
@@ -27,43 +26,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .btn-white{background:#fff;color:var(--purple-dark);padding:12px 22px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;border:none;cursor:pointer}
 .btn-outline{background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;text-decoration:none}
 
-/* SLIDER */
-.slider-wrap{position:relative;overflow:hidden;border-radius:14px;margin:0 -4px}
-.slider{display:flex;transition:transform 0.4s ease;will-change:transform}
-.slide{min-width:100%;padding:0 4px}
-.slide img{width:100%;border-radius:12px;display:block;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
-.slider-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
-.dot-btn{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);border:none;cursor:pointer;padding:0;transition:background 0.2s}
-.dot-btn.active{background:#fff;width:20px;border-radius:4px}
-
 /* SECTIONS */
 section{padding:48px 16px}
 .sec-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
 .sec-title{font-size:clamp(1.3rem,5vw,1.8rem);font-weight:800;color:#1A1A18;letter-spacing:-0.3px;margin-bottom:8px}
 .sec-sub{font-size:14px;color:var(--muted);line-height:1.7}
 
-/* PRICING - Side by Side */
-.pricing{background:var(--bg)}
-.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
-.price-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:14px;position:relative;transition:border-color 0.2s;display:flex;flex-direction:column}
-.price-card.popular{border-color:var(--purple);background:var(--purple-light)}
-.price-name{font-size:13px;font-weight:800;color:#1A1A18;margin-bottom:3px;line-height:1.3}
-.price-desc{font-size:11px;color:var(--muted);margin-bottom:8px}
-.price-amount{font-size:22px;font-weight:800;color:var(--purple-dark);margin-bottom:2px}
-.price-amount span{font-size:12px;font-weight:600;color:var(--muted)}
-.price-features{list-style:none;margin:8px 0;padding:0;flex-grow:1}
-.price-features li{font-size:11px;color:var(--muted);padding:4px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
-.price-features li:last-child{border-bottom:none}
-.price-features li::before{content:"✓";color:var(--green);font-weight:700;font-size:12px;flex-shrink:0}
-.price-btn{display:block;text-align:center;text-decoration:none;margin-top:auto;padding:10px 8px;border-radius:10px;font-size:12px;font-weight:700;border:none;cursor:pointer}
-.price-btn.purple{background:var(--purple);color:#fff}
-.price-btn.gold{background:var(--gold);color:#78350F}
+/* OFFRES SIMPLIFIÉES - juste le titre et le sous-titre */
+.offres-section{background:var(--bg)}
+.offres-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.offre-card{background:#fff;border:2px solid var(--border);border-radius:14px;padding:20px 14px;text-align:center;transition:border-color 0.2s}
+.offre-card.selected{border-color:var(--purple);background:var(--purple-light)}
+.offre-card .option-check{width:24px;height:24px;border-radius:8px;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all 0.2s}
+.offre-card.selected .option-check{background:var(--purple);border-color:var(--purple)}
+.offre-title{font-size:15px;font-weight:800;color:#1A1A18;margin-bottom:6px;line-height:1.4}
+.offre-sub{font-size:12px;color:var(--muted);line-height:1.5}
 
 /* ORDER FORM */
 .order-section{background:#fff}
 .form-wrap{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:20px;margin-top:24px}
 
-/* OPTIONS */
+/* OPTIONS dans le formulaire */
 .options-grid{display:grid;gap:10px;margin-bottom:20px}
 .option-item{background:#fff;border:2px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color 0.2s,background 0.2s}
 .option-item.selected{border-color:var(--purple);background:var(--purple-light)}
@@ -103,15 +86,6 @@ section{padding:48px 16px}
 .feat-title{font-size:13px;font-weight:700;color:#1A1A18;margin-bottom:4px}
 .feat-desc{font-size:12px;color:var(--muted);line-height:1.5}
 
-/* AVIS */
-.avis-slider-wrap{position:relative;overflow:hidden;margin-top:24px}
-.avis-slider{display:flex;transition:transform 0.4s ease}
-.avis-slide{min-width:100%;padding:0 4px}
-.avis-slide img{width:100%;border-radius:14px;display:block;box-shadow:0 4px 16px rgba(0,0,0,0.1)}
-.avis-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
-.avis-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:none;cursor:pointer;padding:0;transition:all 0.2s}
-.avis-dot.active{background:var(--purple);width:20px;border-radius:4px}
-
 /* FOOTER */
 footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-align:center}
 .footer-logo{font-size:17px;font-weight:800;color:#fff;margin-bottom:6px}
@@ -126,19 +100,17 @@ footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-ali
 [dir="rtl"] .option-left{flex-direction:row-reverse}
 [dir="rtl"] .total-bar{flex-direction:row-reverse}
 </style>
+<base target="_blank">
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <img src="IMG_4643.PNG" alt="ANTIC STOCK">
-    ANTIC STOCK
-  </div>
+  <div class="nav-logo">ANTIC STOCK</div>
   <a href="#commander" class="nav-cta">اطلب الآن</a>
 </nav>
 
-<!-- HERO -->
+<!-- HERO - sans images, sans slider -->
 <section class="hero">
   <span class="hero-badge">برنامج 100% جزائري</span>
   <h1>ANTIC STOCK <em>برنامج التسيير التجاري</em></h1>
@@ -147,50 +119,22 @@ footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-ali
     <a href="https://youtube.com/playlist?list=PLsNd_NLF0gcNJZbpph_IX6T5NFy7U7_QI&si=70hqvCQJ3m-A45TI" target="_blank" class="btn-outline">▶️ فيديو تجريبي</a>
     <a href="https://www.mediafire.com/file/12ky2yasnx7x11i/ANTIC+STOCK+V3.8.rar/file" target="_blank" class="btn-outline">⬇️ نسخة تجريبية</a>
   </div>
-  <!-- SLIDER -->
-  <div class="slider-wrap">
-    <div class="slider" id="heroSlider">
-      <div class="slide"><img src="WhatsApp Image 2026-07-19 at 21.03.50.jpeg" alt="واجهة البرنامج"></div>
-      <div class="slide"><img src="IMG_4643.PNG" alt="شعار ANTIC STOCK"></div>
-      <div class="slide"><img src="123.jpg" alt="تقييمات العملاء"></div>
-    </div>
-  </div>
-  <div class="slider-dots" id="heroDots">
-    <button class="dot-btn active" onclick="heroGo(0)"></button>
-    <button class="dot-btn" onclick="heroGo(1)"></button>
-    <button class="dot-btn" onclick="heroGo(2)"></button>
-  </div>
 </section>
 
-<!-- PRICING (OFFRES) -->
-<section class="pricing" id="tarifs">
-  <div class="sec-label">الأسعار</div>
+<!-- OFFRES SIMPLIFIÉES - juste titre + sous-titre -->
+<section class="offres-section" id="tarifs">
+  <div class="sec-label">العروض</div>
   <h2 class="sec-title">اختر العرض المناسب</h2>
-  <p class="sec-sub">أسعار شفافة، بدون رسوم خفية</p>
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-name">البرنامج الأساسي</div>
-      <div class="price-desc">تفعيل مدى الحياة</div>
-      <div class="price-amount">12,000 <span>دج</span></div>
-      <ul class="price-features">
-        <li>تفعيل مدى الحياة</li>
-        <li>جميع الخصائص</li>
-        <li>دعم فني لمدة سنة</li>
-        <li>تثبيت على جهاز واحد</li>
-      </ul>
-      <a href="#commander" class="price-btn purple">اطلب الآن</a>
+  <div class="offres-grid">
+    <div class="offre-card selected" id="offre-card-1" onclick="selectOffre('logiciel')">
+      <div class="option-check" id="check-offre-1"><svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="offre-title">البرنامج</div>
+      <div class="offre-sub">تفعيل دائم</div>
     </div>
-    <div class="price-card">
-      <div class="price-name">طلب عرض سعر</div>
-      <div class="price-desc">برنامج + معدات</div>
-      <div class="price-amount">0 <span>دج</span></div>
-      <ul class="price-features">
-        <li>دراسة مجانية لاحتياجاتك</li>
-        <li>برنامج + طابعة + باركود</li>
-        <li>تثبيت وتهيئة</li>
-        <li>تدريب فريق العمل</li>
-      </ul>
-      <a href="#commander" class="price-btn gold">اطلب عرض سعر</a>
+    <div class="offre-card" id="offre-card-2" onclick="selectOffre('devis')">
+      <div class="option-check" id="check-offre-2"><svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="offre-title">برنامج + معدات (طابعة، باركود...)</div>
+      <div class="offre-sub">اترك معلوماتك وسنوافيك بدراسة مجانية لاحتياجاتك</div>
     </div>
   </div>
 </section>
@@ -209,8 +153,8 @@ footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-ali
           <div class="option-left">
             <div class="option-check" id="check-logiciel"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div>
-              <div class="option-name">البرنامج الأساسي <span class="option-badge">مدى الحياة</span></div>
-              <div class="option-desc">تفعيل دائم بدون اشتراك</div>
+              <div class="option-name">البرنامج</div>
+              <div class="option-desc">تفعيل دائم</div>
             </div>
           </div>
           <div class="option-price">12,000 دج</div>
@@ -219,11 +163,11 @@ footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-ali
           <div class="option-left">
             <div class="option-check" id="check-devis"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div>
-              <div class="option-name">طلب عرض سعر</div>
-              <div class="option-desc">برنامج + معدات (طابعة، باركود...)</div>
+              <div class="option-name">برنامج + معدات</div>
+              <div class="option-desc">طابعة، باركود...</div>
             </div>
           </div>
-          <div class="option-price">مجاني</div>
+          <div class="option-price">دراسة مجانية</div>
         </div>
       </div>
       <div class="form-error" id="err-options" style="margin-bottom:10px;">يرجى اختيار عرض واحد على الأقل.</div>
@@ -381,26 +325,6 @@ footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-ali
   </div>
 </section>
 
-<!-- AVIS -->
-<section id="avis">
-  <div class="sec-label">آراء العملاء</div>
-  <h2 class="sec-title">ثقة عملائنا هي نجاحنا</h2>
-  <div class="avis-slider-wrap">
-    <div class="avis-slider" id="avisSlider">
-      <div class="avis-slide"><img src="123.jpg" alt="تقييم 1"></div>
-      <div class="avis-slide"><img src="124.jpg" alt="تقييم 2"></div>
-      <div class="avis-slide"><img src="125.jpg" alt="تقييم 3"></div>
-      <div class="avis-slide"><img src="126.jpg" alt="تقييم 4"></div>
-    </div>
-  </div>
-  <div class="avis-dots" id="avisDots">
-    <button class="avis-dot active" onclick="avisGo(0)"></button>
-    <button class="avis-dot" onclick="avisGo(1)"></button>
-    <button class="avis-dot" onclick="avisGo(2)"></button>
-    <button class="avis-dot" onclick="avisGo(3)"></button>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ANTIC STOCK</div>
@@ -415,21 +339,7 @@ footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-ali
 <div class="toast" id="toast"></div>
 
 <script>
-// Hero Slider
-let heroIdx=0;
-const heroSlider=document.getElementById('heroSlider');
-const heroDots=document.querySelectorAll('#heroDots .dot-btn');
-function heroGo(i){heroIdx=i;heroSlider.style.transform='translateX('+(-i*100)+'%)';heroDots.forEach((d,j)=>d.classList.toggle('active',j===i));}
-setInterval(()=>{heroGo((heroIdx+1)%3);},5000);
-
-// Avis Slider
-let avisIdx=0;
-const avisSlider=document.getElementById('avisSlider');
-const avisDots=document.querySelectorAll('#avisDots .avis-dot');
-function avisGo(i){avisIdx=i;avisSlider.style.transform='translateX('+(-i*100)+'%)';avisDots.forEach((d,j)=>d.classList.toggle('active',j===i));}
-setInterval(()=>{avisGo((avisIdx+1)%4);},5000);
-
-// Options - CORRIGÉ: les deux options sont cliquables
+// Options - CORRIGÉ
 let selectedOptions={'logiciel':true,'devis':false};
 let totalPrice=12000;
 
@@ -438,19 +348,28 @@ function toggleOption(id,price){
   selectedOptions={'logiciel':false,'devis':false};
   document.getElementById('opt-logiciel').classList.remove('selected');
   document.getElementById('opt-devis').classList.remove('selected');
+  document.getElementById('offre-card-1').classList.remove('selected');
+  document.getElementById('offre-card-2').classList.remove('selected');
 
   // Sélectionner l'option cliquée
   if(id==='logiciel'){
     selectedOptions={'logiciel':true,'devis':false};
     document.getElementById('opt-logiciel').classList.add('selected');
+    document.getElementById('offre-card-1').classList.add('selected');
     totalPrice=12000;
   } else {
     selectedOptions={'logiciel':false,'devis':true};
     document.getElementById('opt-devis').classList.add('selected');
+    document.getElementById('offre-card-2').classList.add('selected');
     totalPrice=0;
   }
 
-  document.getElementById('totalAmount').textContent=totalPrice===0?'مجاني':totalPrice.toLocaleString('fr-FR')+' دج';
+  document.getElementById('totalAmount').textContent=totalPrice===0?'دراسة مجانية':totalPrice.toLocaleString('fr-FR')+' دج';
+}
+
+// Sélection depuis les cartes d'offres simplifiées
+function selectOffre(id){
+  toggleOption(id, id==='logiciel'?12000:0);
 }
 
 // Form
@@ -465,7 +384,7 @@ function submitForm(){
   if(!wilaya){document.getElementById('err-wilaya').style.display='block';valid=false;}else{document.getElementById('err-wilaya').style.display='none';}
   if(!valid)return;
 
-  const optionText=selectedOptions.logiciel?'البرنامج الأساسي (12,000 دج)':'طلب عرض سعر (مجاني)';
+  const optionText=selectedOptions.logiciel?'البرنامج (12,000 دج)':'برنامج + معدات (دراسة مجانية)';
   const commune=document.getElementById('commune').value.trim();
   const note=document.getElementById('note').value.trim();
 
