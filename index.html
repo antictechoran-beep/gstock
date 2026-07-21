@@ -103,6 +103,14 @@ footer{background:#1A1A18;color:rgba(255,255,255,0.6);padding:28px 16px;text-ali
 <base target="_blank">
 </head>
 <body>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1531010824997770');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1531010824997770&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+
 
 <!-- NAV -->
 <nav>
@@ -375,6 +383,9 @@ function selectOffre(id){
 // Form
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 function submitForm(){
+  // Meta Pixel - Lead event (au clic sur le bouton)
+  if(typeof fbq !== 'undefined'){fbq('track','Lead');}
+
   const nom=document.getElementById('nom').value.trim();
   const phone=document.getElementById('phone').value.trim();
   const wilaya=document.getElementById('wilaya').value;
@@ -391,6 +402,17 @@ function submitForm(){
   const msg='طلب جديد - ANTIC STOCK\n'+'العرض: '+optionText+'\n'+'الاسم: '+nom+'\n'+'الهاتف: '+phone+'\n'+'الولاية: '+wilaya+'\n'+(commune?'البلدية: '+commune+'\n':'')+(note?'ملاحظة: '+note:'');
 
   const waUrl='https://wa.me/213673119102?text='+encodeURIComponent(msg);
+
+  // Meta Pixel - Purchase event (commande confirmée)
+  if(typeof fbq !== 'undefined'){
+    fbq('track','Purchase',{
+      value: totalPrice,
+      currency: 'DZD',
+      content_name: selectedOptions.logiciel ? 'البرنامج الأساسي' : 'برنامج + معدات',
+      content_type: 'product'
+    });
+  }
+
   window.open(waUrl,'_blank');
 
   document.getElementById('formContent').style.display='none';
